@@ -3,6 +3,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { GlobalStyle } from "./reuseableComponents/globalStyle";
 import Navbar from "./components/navbar/index";
+import { LeftContent } from "./reuseableComponents/containerStyle";
 
 const theme = {
   colors: {
@@ -43,6 +44,7 @@ function App() {
         <Fragment>
           <GlobalStyle />
           <Navbar />
+          <LeftContent />
         </Fragment>
       </ThemeProvider>
     </Router>
