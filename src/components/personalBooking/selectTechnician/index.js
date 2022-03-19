@@ -29,7 +29,7 @@ import {
   Button,
   ButtonContainer,
 } from "../../../reuseableComponents/buttonStyle";
-import BookingSummary from "../../myAppointmentsPersonal/bookingSummary/index";
+import BookingSummary from "../../personalBooking/bookingSummary/index";
 
 function SelectTechnician() {
   return (
