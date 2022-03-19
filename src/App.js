@@ -12,6 +12,7 @@ import SelectService from "./components/personalBooking/selectService/index";
 import SelectServiceTwo from "./components/personalBooking/selectServiceTwo/index";
 import SelectTechnician from "./components/personalBooking/selectTechnician/index";
 import Schedule from "./components/personalBooking/schedule/index";
+import EnterDetails from "./components/personalBooking/enterDetails/index";
 
 const theme = {
   colors: {
@@ -61,6 +62,7 @@ function App() {
             <Route path="/select-servicestwo" element={<SelectServiceTwo />} />
             <Route path="/select-technician" element={<SelectTechnician />} />
             <Route path="/schedule" element={<Schedule />} />
+            <Route path="/enter-details" element={<EnterDetails />} />
           </Routes>
           <LeftContent />
         </Fragment>
