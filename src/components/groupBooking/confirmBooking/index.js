@@ -21,8 +21,8 @@ import {
   Button,
   ButtonContainer,
 } from "../../../reuseableComponents/buttonStyle";
-import BookingSummary from "../../../components/personalBooking/bookingSummary/index";
-import Success from "../success/index";
+import BookingSummary from "../../../components/myAppointmentsPersonal/bookingSummary/index";
+import Success from "../../myAppointmentsPersonal/success/index";
 
 function ConfirmBooking() {
   const [popup, setPopup] = useState(false);
