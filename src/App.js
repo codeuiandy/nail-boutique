@@ -5,6 +5,7 @@ import { GlobalStyle } from "./reuseableComponents/globalStyle";
 import Navbar from "./components/navbar/index";
 import { LeftContent } from "./reuseableComponents/containerStyle";
 import UpdateProfile from "./components/updateProfile/index";
+import Notification from "./components/notifications/index";
 
 const theme = {
   colors: {
@@ -47,6 +48,7 @@ function App() {
           <Navbar />
           <Routes>
             <Route path="/update-profile" element={<UpdateProfile />} />
+            <Route path="/notifications" element={<Notification />} />
           </Routes>
           <LeftContent />
         </Fragment>

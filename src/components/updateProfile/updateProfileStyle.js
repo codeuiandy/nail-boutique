@@ -126,7 +126,7 @@ export const SubmitBtn = styled.button`
 
   @media (max-width: ${({ theme }) => theme.mediaQuery.mobile}) {
     margin: 0 auto;
-    font-size: ${({ mfs }) => mfs || "1.5rem"};
+    font-size: 1.5rem;
     width: 86%;
     position: fixed;
     bottom: 2.7rem;

@@ -1,43 +1,35 @@
-import React from "react";
-import {
-  ContentContainer,
-  RightContent,
-} from "../../reuseableComponents/containerStyle";
-import { Back } from "../../reuseableComponents/goBackStyle";
-import Sidebar from "../sidebar";
-import { NotificationContainer, Item, RightBorder } from "./notificationStyle";
-import { MdChevronLeft } from "react-icons/md";
-import alertData from "../../components/notifications/notificationData";
-import { HeadingStyle } from "../../reuseableComponents/headingStyle";
+import styled from "styled-components";
 
-function Notification() {
-  return (
-    <ContentContainer>
-      <Sidebar />
-      <RightContent>
-        <NotificationContainer>
-          <HeadingStyle>
-            <h2>Notifications</h2>
-            <Back to="/location">
-              <MdChevronLeft />
-              Go back
-            </Back>
-          </HeadingStyle>
-          {alertData.map((items) => (
-            <Item key={items.id}>
-              <div>
-                <RightBorder />
-                <span>
-                  <h3>{items.heading}</h3>
-                  <p>{items.body}</p>
-                </span>
-              </div>
-            </Item>
-          ))}
-        </NotificationContainer>
-      </RightContent>
-    </ContentContainer>
-  );
-}
+export const NotificationContainer = styled.div`
+  padding: 3rem 3rem;
+`;
 
-export default Notification;
+export const Item = styled.div`
+  padding: 1rem 0 1rem 0;
+
+  & > div {
+    background-color: ${({ theme }) => theme.colors.primary7};
+    margin-bottom: 0rem;
+    display: flex;
+
+    h3 {
+      font-size: 2.2rem;
+      margin-bottom: 0.5rem;
+
+      @media (max-width: ${({ theme }) => theme.mediaQuery.tablet}) {
+        font-size: 2rem;
+      }
+
+      @media (max-width: ${({ theme }) => theme.mediaQuery.mobile}) {
+        font-size: 1.8rem;
+      }
+    }
+  }
+`;
+
+export const RightBorder = styled.div`
+  height: 10rem;
+  width: 1rem;
+  background-color: ${({ theme }) => theme.colors.tertiary2};
+  margin-right: 3rem;
+`;
