@@ -6,6 +6,7 @@ import Navbar from "./components/navbar/index";
 import { LeftContent } from "./reuseableComponents/containerStyle";
 import UpdateProfile from "./components/updateProfile/index";
 import Notification from "./components/notifications/index";
+import Booking from "./components/booking/index";
 
 const theme = {
   colors: {
@@ -47,6 +48,7 @@ function App() {
           <GlobalStyle />
           <Navbar />
           <Routes>
+            <Route path="/*" element={<Booking />} />
             <Route path="/update-profile" element={<UpdateProfile />} />
             <Route path="/notifications" element={<Notification />} />
           </Routes>
