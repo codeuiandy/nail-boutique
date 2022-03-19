@@ -46,14 +46,6 @@ export const ServiceType = styled.div`
   }
 `;
 
-export const ServiceContainer = styled.form`
-  margin-bottom: 3rem;
-
-  @media (max-width: ${({ theme }) => theme.mediaQuery.mobile}) {
-    margin-bottom: 5rem;
-  }
-`;
-
 export const FormContainer = styled.form`
   border-top: 0.5px solid #555555;
   padding-bottom: 1rem;

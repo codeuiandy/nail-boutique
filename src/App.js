@@ -9,6 +9,7 @@ import Notification from "./components/notifications/index";
 import Booking from "./components/booking/index";
 import SelectLocation from "./components/personalBooking/selectLocation/index";
 import SelectService from "./components/personalBooking/selectService/index";
+import SelectServiceTwo from "./components/personalBooking/selectServiceTwo/index";
 
 const theme = {
   colors: {
@@ -55,6 +56,7 @@ function App() {
             <Route path="/notifications" element={<Notification />} />
             <Route path="/select-location" element={<SelectLocation />} />
             <Route path="/select-services" element={<SelectService />} />
+            <Route path="/select-servicestwo" element={<SelectServiceTwo />} />
           </Routes>
           <LeftContent />
         </Fragment>
