@@ -53,7 +53,7 @@ function UpdateProfile() {
       <Sidebar />
       <RightContent display="block">
         <UpdateProfileContainer>
-          <HeadingStyle mPdTop="4rem">
+          <HeadingStyle PdBottom="1rem" mPdTop="4rem">
             <h2>Update Profile</h2>
             <Back to="/enter-details">
               <MdChevronLeft />
