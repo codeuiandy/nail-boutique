@@ -8,6 +8,7 @@ import UpdateProfile from "./components/updateProfile/index";
 import Notification from "./components/notifications/index";
 import Booking from "./components/booking/index";
 import SelectLocation from "./components/personalBooking/selectLocation/index";
+import SelectService from "./components/personalBooking/selectService/index";
 
 const theme = {
   colors: {
@@ -53,6 +54,7 @@ function App() {
             <Route path="/update-profile" element={<UpdateProfile />} />
             <Route path="/notifications" element={<Notification />} />
             <Route path="/select-location" element={<SelectLocation />} />
+            <Route path="/select-services" element={<SelectService />} />
           </Routes>
           <LeftContent />
         </Fragment>
