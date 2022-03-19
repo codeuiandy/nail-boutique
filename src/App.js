@@ -2,6 +2,7 @@ import { Fragment } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { GlobalStyle } from "./reuseableComponents/globalStyle";
+import Navbar from "./components/navbar/index";
 
 const theme = {
   colors: {
@@ -41,7 +42,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <Fragment>
           <GlobalStyle />
-          <h2>nail boutique</h2>
+          <Navbar />
         </Fragment>
       </ThemeProvider>
     </Router>
