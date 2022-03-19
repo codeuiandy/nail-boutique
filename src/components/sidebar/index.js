@@ -2,7 +2,6 @@ import React from "react";
 import { LeftContent } from "../../reuseableComponents/containerStyle";
 import { StyledUl } from "./sidebarStyle";
 import { NavLink } from "react-router-dom";
-import { LeftContent } from "./reuseableComponents/containerStyle";
 
 function Sidebar() {
   return (

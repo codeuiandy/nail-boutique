@@ -16,7 +16,7 @@ import {
   ContentContainer,
   RightContent,
 } from "../../reuseableComponents/containerStyle";
-import Sidebar from "../sidebar";
+import Sidebar from "../sidebar/index";
 import { HeadingStyle } from "../../reuseableComponents/headingStyle";
 
 function UpdateProfile() {

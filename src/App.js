@@ -1,9 +1,10 @@
 import { Fragment } from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { GlobalStyle } from "./reuseableComponents/globalStyle";
 import Navbar from "./components/navbar/index";
 import { LeftContent } from "./reuseableComponents/containerStyle";
+import UpdateProfile from "./components/updateProfile/index";
 
 const theme = {
   colors: {
@@ -44,6 +45,9 @@ function App() {
         <Fragment>
           <GlobalStyle />
           <Navbar />
+          <Routes>
+            <Route path="/update-profile" element={<UpdateProfile />} />
+          </Routes>
           <LeftContent />
         </Fragment>
       </ThemeProvider>
