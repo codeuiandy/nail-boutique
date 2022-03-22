@@ -3,7 +3,6 @@ import {
   ContentContainer,
   RightContent,
 } from "../../reuseableComponents/containerStyle";
-import { Back } from "../../reuseableComponents/goBackStyle";
 import Sidebar from "../sidebar";
 import {
   NotificationContainer,
@@ -12,7 +11,7 @@ import {
 } from "./notificationStyle";
 import { MdChevronLeft } from "react-icons/md";
 import alertData from "../../components/notifications/notificationData";
-import { HeadingStyle } from "../../reuseableComponents/headingStyle";
+import { HeadingStyle, Back } from "../../reuseableComponents/headingStyle";
 
 function Notification() {
   return (
@@ -20,7 +19,7 @@ function Notification() {
       <Sidebar />
       <RightContent display="block">
         <NotificationContainer>
-          <HeadingStyle PdBottom="1rem" mPdTop="4rem">
+          <HeadingStyle height="8rem" PdBottom="0" mPdTop="4rem">
             <h2>Notifications</h2>
             <Back to="/location">
               <MdChevronLeft />

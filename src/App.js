@@ -3,17 +3,33 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { GlobalStyle } from "./reuseableComponents/globalStyle";
 import Navbar from "./components/navbar/index";
-import { LeftContent } from "./reuseableComponents/containerStyle";
+import MyAppointments from "./components/myAppointments/index";
 import UpdateProfile from "./components/updateProfile/index";
-import Notification from "./components/notifications/index";
-import Booking from "./components/booking/index";
-import SelectLocation from "./components/personalBooking/selectLocation/index";
-import SelectService from "./components/personalBooking/selectService/index";
-import SelectServiceTwo from "./components/personalBooking/selectServiceTwo/index";
-import SelectTechnician from "./components/personalBooking/selectTechnician/index";
-import Schedule from "./components/personalBooking/schedule/index";
-import EnterDetails from "./components/personalBooking/enterDetails/index";
-import ConfirmBooking from "./components/personalBooking/confirmBooking/index";
+import Notifications from "./components/notifications/index";
+
+// my appointments personal
+import SelectLocationPersonal from "./components/myAppointments/myAppointmentsPersonal/selectLocation/index";
+import SelectServicePersonal from "./components/myAppointments/myAppointmentsPersonal/selectService/index";
+import SelectServiceTwoPersonal from "./components/myAppointments/myAppointmentsPersonal/selectServiceTwo/index";
+import SelectTechnicianPersonal from "./components/myAppointments/myAppointmentsPersonal/selectTechnician/index";
+import SchedulePersonal from "./components/myAppointments/myAppointmentsPersonal/schedule/index";
+import ConfirmBookingPersonal from "./components/myAppointments/myAppointmentsPersonal/confirmBooking/index";
+import EnterDetailsPersonal from "./components/myAppointments/myAppointmentsPersonal/enterDetails/index";
+
+// my appointments group
+import SelectLocationGroup from "./components/myAppointments/myAppointmentsGroup/selectLocation/index";
+import SelectServiceGroup from "./components/myAppointments/myAppointmentsGroup/selectService/index";
+import SelectServiceTwoGroup from "./components/myAppointments/myAppointmentsGroup/selectServiceTwo/index";
+import ScheduleGroup from "./components/myAppointments/myAppointmentsGroup/schedule/index";
+import ConfirmBookingGroup from "./components/myAppointments/myAppointmentsGroup/confirmBooking/index";
+import EnterDetailsGroup from "./components/myAppointments/myAppointmentsGroup/enterDetails/index";
+import ExpectedClientsGroup from "./components/myAppointments/myAppointmentsGroup/expectedClients/index";
+
+// Outlets
+import MyAppointmentIndex from "./components/pages/MyAppointmentIndex";
+import PersonalBookingIndex from "./components/pages/PersonalBookingIndex";
+import GroupBookingIndex from "./components/pages/GroupBookingIndex";
+import Dashboard from "./components/dashboard";
 
 const theme = {
   colors: {
@@ -55,18 +71,66 @@ function App() {
           <GlobalStyle />
           <Navbar />
           <Routes>
-            <Route path="/*" element={<Booking />} />
-            <Route path="/update-profile" element={<UpdateProfile />} />
-            <Route path="/notifications" element={<Notification />} />
-            <Route path="/select-location" element={<SelectLocation />} />
-            <Route path="/select-services" element={<SelectService />} />
-            <Route path="/select-servicestwo" element={<SelectServiceTwo />} />
-            <Route path="/select-technician" element={<SelectTechnician />} />
-            <Route path="/schedule" element={<Schedule />} />
-            <Route path="/enter-details" element={<EnterDetails />} />
-            <Route path="/confirm-booking" element={<ConfirmBooking />} />
+            <Route path="/*" element={<Dashboard />} />
+            <Route path="/my-appointments" element={<MyAppointmentIndex />}>
+              <Route index element={<MyAppointments />} />
+              <Route path="personal-booking" element={<PersonalBookingIndex />}>
+                <Route index element={<SelectLocationPersonal />} />
+                <Route
+                  path="select-location"
+                  element={<SelectLocationPersonal />}
+                />
+                <Route
+                  path="select-services"
+                  element={<SelectServicePersonal />}
+                />
+                <Route
+                  path="confirm-booking"
+                  element={<ConfirmBookingPersonal />}
+                />
+                <Route
+                  path="select-servicestwo"
+                  element={<SelectServiceTwoPersonal />}
+                />
+                <Route
+                  path="select-technician"
+                  element={<SelectTechnicianPersonal />}
+                />
+                <Route path="schedule" element={<SchedulePersonal />} />
+                <Route
+                  path="enter-details"
+                  element={<EnterDetailsPersonal />}
+                />
+              </Route>
+              <Route path="group-booking" element={<GroupBookingIndex />}>
+                <Route index element={<SelectLocationGroup />} />
+                <Route
+                  path="select-location"
+                  element={<SelectLocationGroup />}
+                />
+                <Route
+                  path="select-services"
+                  element={<SelectServiceGroup />}
+                />
+                <Route
+                  path="confirm-booking"
+                  element={<ConfirmBookingGroup />}
+                />
+                <Route
+                  path="select-servicestwo"
+                  element={<SelectServiceTwoGroup />}
+                />
+                <Route
+                  path="expected-clients"
+                  element={<ExpectedClientsGroup />}
+                />
+                <Route path="schedule" element={<ScheduleGroup />} />
+                <Route path="enter-details" element={<EnterDetailsGroup />} />
+              </Route>
+            </Route>
+            <Route path="update-profile" element={<UpdateProfile />} />
+            <Route path="notifications" element={<Notifications />} />
           </Routes>
-          <LeftContent />
         </Fragment>
       </ThemeProvider>
     </Router>

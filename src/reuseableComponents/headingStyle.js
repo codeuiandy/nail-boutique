@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const HeadingStyle = styled.div`
@@ -9,6 +10,7 @@ export const HeadingStyle = styled.div`
   z-index: 1000;
   background-color: ${({ theme }) => theme.colors.primary2};
   top: 0;
+  height: ${({ height }) => height || "fit-content"};
 
   @media (max-width: ${({ theme }) => theme.mediaQuery.tablet}) {
     padding-top: 0;
@@ -20,24 +22,32 @@ export const HeadingStyle = styled.div`
   }
 
   h2 {
-    font-size: 2.7rem;
+    font-size: 2.5rem;
     font-style: normal;
     font-weight: 700;
 
     @media (max-width: ${({ theme }) => theme.mediaQuery.tablet}) {
-      font-size: 2.5rem;
+      font-size: 2.4rem;
     }
 
     @media (max-width: ${({ theme }) => theme.mediaQuery.mobile}) {
       font-size: 2.3rem;
     }
 
-    @media (max-width: 410px) {
-      font-size: 1.8rem;
+    @media (max-width: 420px) {
+      font-size: 2rem;
     }
 
     @media (max-width: 300px) {
-      font-size: 1.7rem;
+      font-size: 1.8rem;
     }
   }
+`;
+
+export const Back = styled(Link)`
+  display: flex;
+  font-size: 1.5rem;
+  justify-content: flex-end;
+  align-items: center;
+  color: ${({ theme }) => theme.colors.primary6};
 `;

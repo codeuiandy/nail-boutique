@@ -20,7 +20,7 @@ export const NavContainer = styled.div`
   }
 `;
 
-export const NavBarBorderBottom = styled.div`
+export const NavBarBorderBottom  = styled.div`
   height: 2.5rem;
   width: 100%;
   position: fixed;
