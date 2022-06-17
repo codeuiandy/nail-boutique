@@ -16,7 +16,6 @@ function Dashboard() {
     <ContentContainer>
       <Sidebar />
       <RightContent display="block">
-        mnl2h4b33j
         <BookingStyle>
           {data.map((book) => {
             return (
