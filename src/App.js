@@ -2,7 +2,8 @@ import { Fragment } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { GlobalStyle } from "./reuseableComponents/globalStyle";
-import Navbar from "./components/navbar/index";
+import { ToastContainer } from "react-toastify";
+import Navbar from "./components/navBar/index.js";
 import MyAppointments from "./components/myAppointments/index";
 import UpdateProfile from "./components/updateProfile/index";
 import Notifications from "./components/notifications/index";
@@ -66,6 +67,17 @@ const theme = {
 function App() {
   return (
     <Router>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <ThemeProvider theme={theme}>
         <Fragment>
           <GlobalStyle />
@@ -93,7 +105,7 @@ function App() {
                   element={<SelectServiceTwoPersonal />}
                 />
                 <Route
-                  path="select-technician"
+                  path="select-technician/:info"
                   element={<SelectTechnicianPersonal />}
                 />
                 <Route path="schedule" element={<SchedulePersonal />} />
@@ -109,7 +121,7 @@ function App() {
                   element={<SelectLocationGroup />}
                 />
                 <Route
-                  path="select-services"
+                  path="select-services/:id"
                   element={<SelectServiceGroup />}
                 />
                 <Route
@@ -124,7 +136,7 @@ function App() {
                   path="expected-clients"
                   element={<ExpectedClientsGroup />}
                 />
-                <Route path="schedule" element={<ScheduleGroup />} />
+                <Route path="schedule/:info" element={<ScheduleGroup />} />
                 <Route path="enter-details" element={<EnterDetailsGroup />} />
               </Route>
             </Route>

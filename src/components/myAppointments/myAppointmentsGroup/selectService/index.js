@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   ContentContainer,
   RightContent,
@@ -26,9 +26,15 @@ import {
   Back,
 } from "../../../../reuseableComponents/headingStyle";
 import CheckBox from "../../../../reuseableComponents/Checkbox";
+import { axiosCalls } from "../../../../_api";
+import { Toast } from "../../../toast/index";
+import { useNavigate, useParams } from "react-router-dom";
+import { hideLoader, showLoader } from "../../../loader/loader";
 
 function SelectServices() {
+  const params = useParams();
   const [onClick, setOnClick] = React.useState({});
+  const [location, setlocation] = React.useState({});
   const handleClick = (index) => () => {
     setOnClick((state) => ({
       ...state,
@@ -36,22 +42,54 @@ function SelectServices() {
     }));
   };
 
+  const navigation = useNavigate();
+  const [services, setServices] = useState([]);
+  useEffect(() => {
+    let locationSt = localStorage.getItem("location");
+    if (locationSt) {
+      locationSt = JSON.parse(locationSt);
+      console.log("location>>>>>>>", locationSt);
+      setlocation(locationSt);
+    }
+    getServices();
+  }, []);
+
+  const getServices = async () => {
+    showLoader();
+    const res = await axiosCalls(`services?location=${params.id}`, "GET");
+    if (res) {
+      hideLoader();
+      if (res.data) {
+        console.log(res);
+        return setServices(res.data);
+      }
+      Toast("error", "Server Error");
+    }
+  };
+
+  const [selectedService, setselectedService] = useState("");
+  console.log(params);
   return (
     <ContentContainer>
       <Sidebar />
       <RightContent>
         <RightContentCol1>
           <HeadingStyle>
-            <h2>Select Services</h2>
+            <h2>Select Services </h2>
             <Back to="/my-appointments/group-booking/select-location">
               <MdChevronLeft />
               Go back
             </Back>
           </HeadingStyle>
           <ServiceContainer>
-            {serviceData.map((items, index) => {
+            {services.map((items, index) => {
               return (
-                <Services key={items.id}>
+                <Services
+                  key={items.id}
+                  onClick={() => {
+                    setselectedService(items);
+                  }}
+                >
                   <ServiceType>
                     <div>
                       <h3>{items.title}</h3>
@@ -64,28 +102,31 @@ function SelectServices() {
                   {onClick[index] && (
                     <FormContainer>
                       <InputContainer>
-                        <CheckBox value={items.value1} name={items.name} />
-                        <label htmlFor={items.value1}>
-                          <h5>{items.labelA}</h5>
-                          <p>{items.labelB}</p>
+                        <CheckBox
+                          value={onClick[index].amount}
+                          name={items.name}
+                        />
+                        <label htmlFor={onClick[index].amount}>
+                          <h5>{items.descriptions}</h5>
+                          <p>{items.amount}</p>
                         </label>
                       </InputContainer>
 
-                      <InputContainer>
+                      {/* <InputContainer>
                         <CheckBox value={items.value2} name={items.name} />
                         <label htmlFor={items.value2}>
                           <h5>{items.labelA}</h5>
                           <p>{items.labelB}</p>
                         </label>
-                      </InputContainer>
+                      </InputContainer> */}
 
-                      <InputContainer>
+                      {/* <InputContainer>
                         <CheckBox value={items.value3} name={items.name} />
                         <label htmlFor={items.value3}>
                           <h5>{items.labelA}</h5>
                           <p>{items.labelB}</p>
                         </label>
-                      </InputContainer>
+                      </InputContainer> */}
                     </FormContainer>
                   )}
                 </Services>
@@ -93,13 +134,28 @@ function SelectServices() {
             })}
           </ServiceContainer>
           <ButtonContainer paddingm="0.5rem 0">
-            <Button to="/my-appointments/group-booking/select-servicestwo">
+            <Button
+              onClick={
+                selectedService == ""
+                  ? () => Toast("error", "Please select a service")
+                  : () => {
+                      localStorage.setItem(
+                        "services",
+                        JSON.stringify(selectedService)
+                      );
+                      navigation(
+                        `/my-appointments/personal-booking/select-technician/${params.id}`
+                      );
+                    }
+                // navigation("/my-appointments/group-booking/schedule")
+              }
+            >
               CONTINUE
             </Button>
           </ButtonContainer>
         </RightContentCol1>
         <RightContentCol2>
-          <BookingSummary />
+          <BookingSummary location={location} service={selectedService} />
         </RightContentCol2>
       </RightContent>
     </ContentContainer>

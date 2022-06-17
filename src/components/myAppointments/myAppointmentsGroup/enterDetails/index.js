@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import BookingSummary from "../bookingSummary";
 import {
   Button,
@@ -27,8 +27,42 @@ import {
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import CheckBox from "../../../../reuseableComponents/Checkbox";
+import { hideLoader, showLoader } from "../../../loader/loader";
+import { axiosCalls } from "../../../../_api";
+import { Toast } from "../../../toast/index";
 
 function EnterDetails() {
+  const [location, setlocation] = useState({});
+  const [servicessTA, setservicessTA] = useState({});
+  const [selectedTech, setselectedTech] = useState({});
+  const [selectedTime, setselectedTime] = useState({});
+
+  useEffect(() => {
+    let locationSt = localStorage.getItem("location");
+    let servicesSt = localStorage.getItem("services");
+    let techSt = localStorage.getItem("technician");
+    let timeSt = localStorage.getItem("time");
+    if (locationSt) {
+      locationSt = JSON.parse(locationSt);
+      console.log("location>>>>>>>", locationSt);
+      setlocation(locationSt);
+    }
+    if (servicesSt) {
+      servicesSt = JSON.parse(servicesSt);
+      console.log("services>>>>>>>", servicesSt);
+      setservicessTA(servicesSt);
+    }
+    if (techSt) {
+      techSt = JSON.parse(techSt);
+      console.log("tech>>>>>>>", techSt);
+      setselectedTech(techSt);
+    }
+    if (timeSt) {
+      // timeSt = JSON.parse(timeSt);
+      console.log("time>>>>>>>", timeSt);
+      setselectedTime(timeSt);
+    }
+  }, []);
   const formik = useFormik({
     initialValues: {
       firstName: "",
@@ -55,9 +89,33 @@ function EnterDetails() {
         .max(15, "Must be 15 characters or less")
         .required("*Required"),
     }),
-    onSubmit: (values) => console.log(values),
+    onSubmit: (values) => bookAppointment(values),
   });
   console.log(formik.values);
+
+  const bookAppointment = async (values) => {
+    let date = localStorage.getItem("date");
+    showLoader();
+    const data = {
+      booked_technician: selectedTech.mobile,
+      customer: values.phone,
+      bookedDate: date,
+      slot_timestart: selectedTime,
+      isGroup: "False",
+      location: location.location_address,
+    };
+    console.log(data);
+    const res = await axiosCalls(`booking`, "POST", data);
+    if (res) {
+      hideLoader();
+      if (res) {
+        console.log(res);
+        return;
+      }
+      Toast("error", "Server Error");
+    }
+  };
+
   return (
     <ContentContainer>
       <Sidebar />
@@ -175,13 +233,16 @@ function EnterDetails() {
             </Policy>
           </div>
           <ButtonContainer>
-            <Button to="/my-appointments/group-booking/confirm-booking">
-              NEXT
-            </Button>
+            <Button onClick={formik.submitForm}>NEXT</Button>
           </ButtonContainer>
         </RightContentCol1>
         <RightContentCol2>
-          <BookingSummary />
+          <BookingSummary
+            location={location}
+            service={servicessTA}
+            selectedTech={selectedTech}
+            selectedTime={selectedTime}
+          />
         </RightContentCol2>
       </RightContent>
     </ContentContainer>

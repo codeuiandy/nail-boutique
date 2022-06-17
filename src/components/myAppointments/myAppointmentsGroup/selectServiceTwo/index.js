@@ -41,7 +41,7 @@ function SelectServiceTwo() {
       <RightContent>
         <RightContentCol1>
           <HeadingStyle>
-            <h2>Select Services</h2>
+            <h2>Select Servicesc</h2>
             <Back to="/my-appointments/group-booking/select-services">
               <MdChevronLeft />
               Go back

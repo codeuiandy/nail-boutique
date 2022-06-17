@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   ContentContainer,
   RightContent,
@@ -30,10 +30,51 @@ import {
   Button,
   ButtonContainer,
 } from "../../../../reuseableComponents/buttonStyle";
-import BookingSummary from "../../myAppointmentsPersonal/bookingSummary/index";
+import BookingSummary from "../../../../components/myAppointments/myAppointmentsGroup/bookingSummary/index.js";
 import Sidebar from "../../../sidebar";
+import { axiosCalls } from "../../../../_api";
+import { Toast } from "../../../toast/index";
+import { useNavigate, useParams } from "react-router-dom";
+import { hideLoader, showLoader } from "../../../loader/loader";
 
 function SelectTechnician() {
+  const navigation = useNavigate();
+  const params = useParams();
+  const [technicians, setTechnicians] = useState([]);
+  const [location, setlocation] = React.useState({});
+  const [servicessTA, setservicessTA] = useState({});
+  useEffect(() => {
+    getTechnicians();
+  }, []);
+
+  const getTechnicians = async () => {
+    showLoader();
+    const res = await axiosCalls(`technicians?location=${params.info}`, "GET");
+    if (res) {
+      let locationSt = localStorage.getItem("location");
+      let servicesSt = localStorage.getItem("services");
+
+      if (locationSt) {
+        locationSt = JSON.parse(locationSt);
+        console.log("location>>>>>>>", locationSt);
+        setlocation(locationSt);
+      }
+
+      if (servicesSt) {
+        servicesSt = JSON.parse(servicesSt);
+        console.log("services>>>>>>>", servicesSt);
+        setservicessTA(servicesSt);
+      }
+      hideLoader();
+      if (res.data) {
+        console.log(res);
+        return setTechnicians(res.data);
+      }
+      Toast("error", "Server Error");
+    }
+  };
+
+  const [selectedTech, setselectedTech] = useState("");
   return (
     <ContentContainer>
       <Sidebar />
@@ -69,15 +110,30 @@ function SelectTechnician() {
           </Top>
           <div>
             <Row3>
-              {technicianData.map((item) => (
-                <Card key={item.id}>
+              {technicians.map((item) => (
+                <Card key={item.id} onClick={() => setselectedTech(item)}>
                   <div className="top">
-                    <img src={item.tick} alt="tick" />
+                    {selectedTech.technician_id === item.technician_id ? (
+                      <img
+                        src={require("../../../../images/tick.png")}
+                        alt="tick"
+                      />
+                    ) : (
+                      <div></div>
+                    )}
+
                     <HiDotsHorizontal className="dots" />
                   </div>
                   <Technician>
-                    <img src={item.avatar} alt="avatar" />
-                    <h4>{item.name}</h4>
+                    <img
+                      src={
+                        item.avatar
+                          ? item.avatar
+                          : require("../../../../images/avatar1.png")
+                      }
+                      alt="avatar"
+                    />
+                    <h4>{item?.first_name}</h4>
                     <p>{`${item.role} - ${item.age}Yrs`}</p>
                     <div>
                       <span>
@@ -96,13 +152,31 @@ function SelectTechnician() {
             </Row3>
           </div>
           <ButtonContainer>
-            <Button to="/my-appointments/personal-booking/schedule">
+            <Button
+              onClick={
+                selectedTech == ""
+                  ? () => Toast("error", "Please select a technician")
+                  : () => {
+                      localStorage.setItem(
+                        "technician",
+                        JSON.stringify(selectedTech)
+                      );
+                      navigation(
+                        `/my-appointments/group-booking/schedule/${selectedTech.email}`
+                      );
+                    }
+              }
+            >
               CONTINUE
             </Button>
           </ButtonContainer>
         </RightContentCol1>
         <RightContentCol2>
-          <BookingSummary />
+          <BookingSummary
+            location={location}
+            service={servicessTA}
+            selectedTech={selectedTech}
+          />
         </RightContentCol2>
       </RightContent>
     </ContentContainer>

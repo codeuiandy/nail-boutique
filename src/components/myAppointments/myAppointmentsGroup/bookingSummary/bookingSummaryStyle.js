@@ -237,7 +237,7 @@ export const Total = styled.div`
   }
 `;
 
-export const Button = styled(Link)`
+export const Button = styled.button`
   color: ${({ color }) => color || "#000000"};
   background: linear-gradient(90deg, #f5d061 -1.65%, #e48f04 100%);
   width: 90%;

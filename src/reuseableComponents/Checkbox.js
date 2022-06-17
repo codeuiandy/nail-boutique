@@ -2,7 +2,7 @@ import React from "react";
 import { GoCheck } from "react-icons/go";
 import Checkbox from "react-custom-checkbox";
 
-function CheckBox({ label, name, value }) {
+function CheckBox({ label, name, value, onCheck }) {
   return (
     <Checkbox
       icon={
@@ -24,9 +24,9 @@ function CheckBox({ label, name, value }) {
       name={name}
       className="checkbox"
       value={value}
-      checked={false}
+      checked={value}
       onChange={(value) => {
-        console.log(value);
+        onCheck(value);
       }}
       borderColor="#696969"
       borderWidth={1}

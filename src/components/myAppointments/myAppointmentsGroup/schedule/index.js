@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import BookingSummary from "../bookingSummary";
 import {
   Button,
@@ -29,9 +29,68 @@ import "./calendar.css";
 import { CalendarContainer } from "react-datepicker";
 import timeData from "./scheduleData";
 import CheckBox from "../../../../reuseableComponents/Checkbox";
+import { hideLoader, showLoader } from "../../../loader/loader";
+import { axiosCalls } from "../../../../_api";
+import { useParams } from "react-router-dom";
+import { Toast } from "../../../toast/index";
 
 function Schedule() {
-  const [value, onChange] = React.useState(new Date());
+  const [date, Setdate] = React.useState(new Date());
+  const [location, setlocation] = React.useState({});
+  const [servicessTA, setservicessTA] = useState({});
+  const [selectedTech, setselectedTech] = useState({});
+  const [selectedDate, setselectedDate] = useState({});
+  const params = useParams();
+  const [Schedule, setSchedule] = useState([]);
+  useEffect(() => {
+    let locationSt = localStorage.getItem("location");
+    let servicesSt = localStorage.getItem("services");
+    let techSt = localStorage.getItem("technician");
+
+    if (locationSt) {
+      locationSt = JSON.parse(locationSt);
+      console.log("location>>>>>>>", locationSt);
+      setlocation(locationSt);
+    }
+
+    if (servicesSt) {
+      servicesSt = JSON.parse(servicesSt);
+      console.log("services>>>>>>>", servicesSt);
+      setservicessTA(servicesSt);
+    }
+
+    if (techSt) {
+      techSt = JSON.parse(techSt);
+      console.log("tech>>>>>>>", techSt);
+      setselectedTech(techSt);
+    }
+
+    getSchedule();
+  }, [date]);
+
+  useEffect(() => {
+    localStorage.setItem("date", new Date());
+  }, []);
+
+  const getSchedule = async () => {
+    showLoader();
+    const data = {
+      date: date,
+      email: params.info,
+    };
+    const res = await axiosCalls(`bookings/timeslots`, "POST", data);
+    if (res) {
+      hideLoader();
+      if (res.AvailableSlots) {
+        console.log(res.AvailableSlots);
+        return setSchedule(res.AvailableSlots);
+      }
+      Toast("error", "Server Error");
+    }
+  };
+
+  const [selectedTime, setselectedTime] = useState("");
+
   return (
     <div>
       <ContentContainer>
@@ -47,7 +106,14 @@ function Schedule() {
             </HeadingStyle>
             <ScheduleContainer>
               <CalendarContainer>
-                <Calendar calendarType="US" onChange={onChange} value={value} />
+                <Calendar
+                  calendarType="US"
+                  onChange={(d) => {
+                    Setdate(d);
+                    localStorage.setItem("date", d);
+                  }}
+                  value={date}
+                />
               </CalendarContainer>
               <Dots>
                 <div>
@@ -63,10 +129,18 @@ function Schedule() {
                 <h1>Available Time</h1>
 
                 <SelectAvailableTime>
-                  {timeData.map((time) => {
+                  {Schedule.map((time) => {
                     return (
-                      <Option key={time.id}>
-                        <CheckBox label={time.time} name={time.name} />
+                      <Option key={time}>
+                        <CheckBox
+                          label={time}
+                          name={time}
+                          onCheck={(t) => {
+                            console.log(time);
+                            setselectedTime(time);
+                          }}
+                          value={selectedTime === time ? true : false}
+                        />
                       </Option>
                     );
                   })}
@@ -81,7 +155,12 @@ function Schedule() {
             </ButtonContainer>
           </RightContentCol1>
           <RightContentCol2>
-            <BookingSummary />
+            <BookingSummary
+              location={location}
+              service={servicessTA}
+              selectedTech={selectedTech}
+              selectedTime={selectedTime}
+            />
           </RightContentCol2>
         </RightContent>
       </ContentContainer>

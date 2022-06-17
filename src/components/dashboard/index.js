@@ -7,12 +7,16 @@ import Sidebar from "../sidebar";
 import { BookingStyle, Book } from "./dashboardStyle";
 import { ButtonS } from "../../reuseableComponents/buttonStyle";
 import data from "./dashboardData";
+import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
+  const navigation = useNavigate();
+
   return (
     <ContentContainer>
       <Sidebar />
       <RightContent display="block">
+        mnl2h4b33j
         <BookingStyle>
           {data.map((book) => {
             return (
@@ -21,7 +25,9 @@ function Dashboard() {
                   <img src={book.icon} alt="icon" />
                   <h4>{book.title}</h4>
 
-                  <ButtonS to={book.link}>CREATE BOOKING</ButtonS>
+                  <ButtonS onClick={() => navigation(book.link)}>
+                    CREATE BOOKING
+                  </ButtonS>
                 </div>
               </Book>
             );

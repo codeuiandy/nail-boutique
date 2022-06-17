@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 
 export const ButtonContainer = styled.div`
   padding: ${({ padding }) => padding || "2rem 0 2rem 0"};
@@ -21,7 +20,7 @@ export const ButtonContainer = styled.div`
   }
 `;
 
-export const Button = styled(Link)`
+export const Button = styled.button`
   color: ${({ color }) => color || "#000000"};
   background: linear-gradient(90deg, #f5d061 -1.65%, #e48f04 100%);
   border: none;
@@ -61,7 +60,7 @@ export const Button = styled(Link)`
   }
 `;
 
-export const ButtonS = styled(Link)`
+export const ButtonS = styled.button`
   color: ${({ color }) => color || "#000000"};
   background: linear-gradient(90deg, #f5d061 -1.65%, #e48f04 100%);
   width: 100%;
