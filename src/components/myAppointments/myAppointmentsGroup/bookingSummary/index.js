@@ -20,6 +20,7 @@ import { AiOutlineClockCircle } from "react-icons/ai";
 import avatar from "../../../../images/avatar1.png";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Toast } from "../../../toast/index";
+import moment from "moment";
 
 function BookingSummary({ location, service, selectedTech, selectedTime }) {
   const route = useLocation();
@@ -97,7 +98,13 @@ function BookingSummary({ location, service, selectedTech, selectedTime }) {
           <Day>
             <AiOutlineClockCircle className="icon" />
 
-            <h6>{`${selectedTime}`}</h6>
+            {selectedTime ? (
+              <h6>{`${moment(selectedTime).format(
+                "MMMM Do YYYY, h:mm:ss a"
+              )}`}</h6>
+            ) : (
+              ""
+            )}
           </Day>
         </Booking>
       </div>

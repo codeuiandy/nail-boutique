@@ -33,8 +33,11 @@ import { hideLoader, showLoader } from "../../../loader/loader";
 import { axiosCalls } from "../../../../_api";
 import { useParams } from "react-router-dom";
 import { Toast } from "../../../toast/index";
+import moment from "moment";
+import { useNavigate } from "react-router-dom";
 
 function Schedule() {
+  const navigation = useNavigate();
   const [date, Setdate] = React.useState(new Date());
   const [location, setlocation] = React.useState({});
   const [servicessTA, setservicessTA] = useState({});
@@ -133,7 +136,7 @@ function Schedule() {
                     return (
                       <Option key={time}>
                         <CheckBox
-                          label={time}
+                          label={moment(time).format("MMMM Do YYYY, h:mm:ss a")}
                           name={time}
                           onCheck={(t) => {
                             console.log(time);
@@ -149,8 +152,19 @@ function Schedule() {
             </ScheduleContainer>
             <Waitlist to="/waitlist">Join our waitlist</Waitlist>
             <ButtonContainer>
-              <Button to="/my-appointments/group-booking/enter-details">
-                ADD OTHER SERVICES
+              <Button
+                onClick={
+                  selectedTime == ""
+                    ? () => Toast("error", "Please select a preferred time")
+                    : () => {
+                        localStorage.setItem("time", selectedTime);
+                        navigation(
+                          `/my-appointments/group-booking/enter-details`
+                        );
+                      }
+                }
+              >
+                Continue
               </Button>
             </ButtonContainer>
           </RightContentCol1>

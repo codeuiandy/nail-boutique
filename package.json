@@ -10,6 +10,7 @@
     "components": "^0.1.0",
     "formik": "^2.2.9",
     "hamburger-react": "^2.4.1",
+    "moment": "^2.29.3",
     "react": "^17.0.2",
     "react-calendar": "^3.7.0",
     "react-custom-checkbox": "^2.0.1",

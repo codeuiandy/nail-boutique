@@ -30,8 +30,10 @@ import CheckBox from "../../../../reuseableComponents/Checkbox";
 import { hideLoader, showLoader } from "../../../loader/loader";
 import { axiosCalls } from "../../../../_api";
 import { Toast } from "../../../toast/index";
+import { useNavigate } from "react-router-dom";
 
 function EnterDetails() {
+  const navigation = useNavigate();
   const [location, setlocation] = useState({});
   const [servicessTA, setservicessTA] = useState({});
   const [selectedTech, setselectedTech] = useState({});
@@ -99,8 +101,8 @@ function EnterDetails() {
     const data = {
       booked_technician: selectedTech.mobile,
       customer: values.phone,
-      bookedDate: date,
-      slot_timestart: selectedTime,
+      bookedDate: selectedTime,
+      // slot_timestart: selectedTime,
       isGroup: "False",
       location: location.location_address,
     };
@@ -108,11 +110,14 @@ function EnterDetails() {
     const res = await axiosCalls(`booking`, "POST", data);
     if (res) {
       hideLoader();
-      if (res) {
+      if (res.status === 200) {
         console.log(res);
+        Toast("success", res.message);
+        navigation("/");
         return;
       }
-      Toast("error", "Server Error");
+      console.log(res);
+      Toast("error", res.er.message);
     }
   };
 
