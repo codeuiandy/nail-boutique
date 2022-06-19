@@ -87,9 +87,6 @@ function EnterDetails() {
       phone: Yup.string()
         .max(15, "Must be 15 characters or less")
         .required("*Required"),
-      comment: Yup.string()
-        .max(15, "Must be 15 characters or less")
-        .required("*Required"),
     }),
     onSubmit: (values) => bookAppointment(values),
   });
