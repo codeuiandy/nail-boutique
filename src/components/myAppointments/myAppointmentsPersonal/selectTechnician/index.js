@@ -162,7 +162,7 @@ function SelectTechnician() {
                         JSON.stringify(selectedTech)
                       );
                       navigation(
-                        `/my-appointments/group-booking/schedule/${selectedTech.email}`
+                        `/my-appointments/group-booking/schedule/${selectedTech.technician_id}`
                       );
                     }
               }

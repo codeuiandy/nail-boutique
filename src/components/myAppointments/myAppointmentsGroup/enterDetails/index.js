@@ -46,7 +46,7 @@ function EnterDetails() {
     let timeSt = localStorage.getItem("time");
     if (locationSt) {
       locationSt = JSON.parse(locationSt);
-      console.log("location>>>>>>>", locationSt);
+      console.log("location>>>>>>>>vvvvv>>>>>>>>>>>", locationSt);
       setlocation(locationSt);
     }
     if (servicesSt) {
@@ -96,13 +96,27 @@ function EnterDetails() {
     let date = localStorage.getItem("date");
     showLoader();
     const data = {
-      booked_technician: selectedTech.mobile,
-      customer: values.phone,
-      bookedDate: selectedTime,
-      // slot_timestart: selectedTime,
+      booked_technician: selectedTech.technician_id,
+      customer: {
+        first_name: values.firstName,
+        last_name: values.lastName,
+        email: values.email,
+        mobile: values.phone,
+      },
+      bookedDate: new Date(date),
       isGroup: "False",
-      location: location.location_address,
+      location: location.location_code,
     };
+
+    // {
+    //   booked_technician: selectedTech.mobile,
+    //   customer: values.phone,
+    //   bookedDate: selectedTime,
+    //   // slot_timestart: selectedTime,
+    //   isGroup: "False",
+    //   location: location.location_address,
+
+    // };
     console.log(data);
     const res = await axiosCalls(`booking`, "POST", data);
     if (res) {
