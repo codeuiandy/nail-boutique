@@ -1,0 +1,6 @@
+.react-calendar__tile:disabled {
+  cursor: not-allowed;
+  color: white !important;
+  background-color: rgba(0, 0, 0, 0.382) !important;
+  filter: grayscale(0.1) blur(1.9px);
+}

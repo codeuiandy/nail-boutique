@@ -116,6 +116,7 @@ function Schedule() {
                     localStorage.setItem("date", d);
                   }}
                   value={date}
+                  minDate={moment().toDate()}
                 />
               </CalendarContainer>
               <Dots>
