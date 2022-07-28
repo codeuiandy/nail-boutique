@@ -76,7 +76,7 @@ function SelectServices() {
         <RightContentCol1>
           <HeadingStyle>
             <h2>Select Services </h2>
-            <Back to="/my-appointments/group-booking/select-location">
+            <Back to="/my-appointments/personal-booking/select-location">
               <MdChevronLeft />
               Go back
             </Back>
@@ -84,12 +84,7 @@ function SelectServices() {
           <ServiceContainer>
             {services.map((items, index) => {
               return (
-                <Services
-                  key={items.id}
-                  onClick={() => {
-                    setselectedService(items);
-                  }}
-                >
+                <Services key={items.id}>
                   <ServiceType>
                     <div>
                       <h3>{items.title}</h3>
@@ -101,7 +96,11 @@ function SelectServices() {
                   </ServiceType>
                   {onClick[index] && (
                     <FormContainer>
-                      <InputContainer>
+                      <InputContainer
+                        onClick={() => {
+                          setselectedService(items);
+                        }}
+                      >
                         <CheckBox
                           value={onClick[index].amount}
                           name={items.name}
