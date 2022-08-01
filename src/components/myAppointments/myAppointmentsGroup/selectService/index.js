@@ -35,6 +35,8 @@ function SelectServices() {
   const params = useParams();
   const [onClick, setOnClick] = React.useState({});
   const [location, setlocation] = React.useState({});
+  const [bookingType, setBookingType] = React.useState("");
+  const [allAmount, setAllAmount] = useState([{ id: "", count: "" }]);
   const handleClick = (index) => () => {
     setOnClick((state) => ({
       ...state,
@@ -50,6 +52,12 @@ function SelectServices() {
       locationSt = JSON.parse(locationSt);
       console.log("location>>>>>>>", locationSt);
       setlocation(locationSt);
+    }
+
+    let bookingTypeg = localStorage.getItem("bookingType");
+    if (bookingTypeg) {
+      console.log("Booking Type>>>>>>>", bookingTypeg);
+      setBookingType(bookingTypeg);
     }
     getServices();
   }, []);
@@ -69,6 +77,19 @@ function SelectServices() {
 
   const [selectedService, setselectedService] = useState("");
   console.log(params);
+
+  const updateFieldChanged = (index) => (e) => {
+    const newArr = allAmount.map((item, i) => {
+      if (index === i) {
+        return { ...item, [e.target.name]: e.target.value };
+      } else {
+        console.log("allAmount>>>>>>>>>>>>>", allAmount);
+        return item;
+      }
+    });
+    console.log("allAmount>>>>>>>>>>>>>", allAmount);
+    setAllAmount(newArr);
+  };
   return (
     <ContentContainer>
       <Sidebar />
@@ -99,6 +120,14 @@ function SelectServices() {
                       <InputContainer
                         onClick={() => {
                           setselectedService(items);
+
+                          console.log(allAmount);
+                          let v = {
+                            count: index,
+                            id: items.service_id,
+                          };
+                          allAmount[index] = v;
+                          setAllAmount(allAmount);
                         }}
                       >
                         <CheckBox
@@ -110,6 +139,21 @@ function SelectServices() {
                           <p>{items.amount}</p>
                         </label>
                       </InputContainer>
+                      {bookingType == "group" ? (
+                        <input
+                          type="number"
+                          onChange={(e) => {
+                            console.log(allAmount);
+                            let all = allAmount;
+                            let v = {
+                              count: (all[index] = e.target.value),
+                              id: items.service_id,
+                            };
+                            allAmount[index] = v;
+                            setAllAmount(allAmount);
+                          }}
+                        />
+                      ) : null}
 
                       {/* <InputContainer>
                         <CheckBox value={items.value2} name={items.name} />
@@ -142,6 +186,17 @@ function SelectServices() {
                         "services",
                         JSON.stringify(selectedService)
                       );
+                      if (bookingType == "group") {
+                        localStorage.setItem(
+                          "allAmount",
+                          JSON.stringify(allAmount)
+                        );
+                        navigation(
+                          `/my-appointments/group-booking/schedule/${params.id}`
+                          // `/my-appointments/personal-booking/expected-clients/${params.id}`
+                        );
+                        return;
+                      }
                       navigation(
                         `/my-appointments/group-booking/schedule/${params.id}`
                       );

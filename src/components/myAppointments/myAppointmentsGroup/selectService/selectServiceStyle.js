@@ -60,6 +60,20 @@ export const ServiceContainer = styled.div`
 export const FormContainer = styled.div`
   border-top: 0.5px solid #555555;
   padding-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  input {
+    background-color: transparent;
+    border: 1px solid #aeaeae;
+    outline: none;
+    border-radius: 5px;
+    color: white;
+    height: 40px;
+    width: 50px;
+    margin-right: 10px;
+    padding-left: 5px;
+  }
 `;
 
 export const InputContainer = styled.div`

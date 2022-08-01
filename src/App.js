@@ -113,6 +113,11 @@ function App() {
                   path="enter-details"
                   element={<EnterDetailsPersonal />}
                 />
+
+                <Route
+                  path="expected-clients/:info"
+                  element={<ExpectedClientsGroup />}
+                />
               </Route>
               <Route path="group-booking" element={<GroupBookingIndex />}>
                 <Route index element={<SelectLocationGroup />} />
@@ -132,10 +137,10 @@ function App() {
                   path="select-servicestwo"
                   element={<SelectServiceTwoGroup />}
                 />
-                <Route
+                {/* <Route
                   path="expected-clients"
                   element={<ExpectedClientsGroup />}
-                />
+                /> */}
                 <Route path="schedule/:info" element={<ScheduleGroup />} />
                 <Route path="enter-details" element={<EnterDetailsGroup />} />
               </Route>

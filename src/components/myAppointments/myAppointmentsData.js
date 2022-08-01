@@ -12,7 +12,7 @@ const MyAppointmentsData = [
     id: 2,
     icon: group,
     title: "Group Booking",
-    link: "/my-appointments/group-booking/select-location",
+    link: "/my-appointments/personal-booking/select-location",
   },
 ];
 export default MyAppointmentsData;

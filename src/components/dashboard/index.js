@@ -24,7 +24,12 @@ function Dashboard() {
                   <img src={book.icon} alt="icon" />
                   <h4>{book.title}</h4>
 
-                  <ButtonS onClick={() => navigation(book.link)}>
+                  <ButtonS
+                    onClick={() => {
+                      localStorage.setItem("bookingType", book.type);
+                      navigation(book.link);
+                    }}
+                  >
                     CREATE BOOKING
                   </ButtonS>
                 </div>

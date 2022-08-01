@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "../../../../reuseableComponents/buttonStyle";
 import {
   ContentContainer,
@@ -14,8 +14,15 @@ import {
 import Sidebar from "../../../sidebar";
 import BookingSummary from "../bookingSummary";
 import { InputField } from "./expectedClientsStyle";
+import { useParams, useNavigate } from "react-router-dom";
+import { Toast } from "../../../toast";
 
 function ExpectedClients() {
+  const params = useParams();
+  const navigation = useNavigate();
+
+  const [amount, setAmount] = useState("");
+
   return (
     <ContentContainer>
       <Sidebar />
@@ -33,9 +40,23 @@ function ExpectedClients() {
               type="number"
               name="expected-clients"
               id="expected-clients"
+              onChange={(e) => setAmount(e.target.value)}
             />
           </InputField>
-          <Button to="/my-appointments/group-booking/schedule">CONTINUE</Button>
+          <Button
+            onClick={
+              amount == ""
+                ? () => Toast("error", "Input number of expected clients")
+                : () => {
+                    localStorage.setItem("expectedClients", amount);
+                    navigation(
+                      `/my-appointments/group-booking/schedule/${params.info}`
+                    );
+                  }
+            }
+          >
+            CONTINUE
+          </Button>
         </RightContentCol1>
         <RightContentCol2>
           <BookingSummary />

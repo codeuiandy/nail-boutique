@@ -42,6 +42,9 @@ function EnterDetails() {
   const [servicessTA, setservicessTA] = useState({});
   const [selectedTech, setselectedTech] = useState({});
   const [selectedTime, setselectedTime] = useState({});
+  const [bookingType, setBookingType] = useState("");
+  const [amount, setAmount] = useState("");
+  const [allAmountSt, setAllAmountSt] = useState([]);
   const [open, setOpen] = useState(false);
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
@@ -51,11 +54,26 @@ function EnterDetails() {
     let servicesSt = localStorage.getItem("services");
     let techSt = localStorage.getItem("technician");
     let timeSt = localStorage.getItem("time");
+    let allAmount = localStorage.getItem("allAmount");
+    let bookingTypeg = localStorage.getItem("bookingType");
+
     if (locationSt) {
       locationSt = JSON.parse(locationSt);
       console.log("location>>>>>>>>vvvvv>>>>>>>>>>>", locationSt);
       setlocation(locationSt);
     }
+
+    if (bookingTypeg) {
+      console.log("Booking Type>>>>>>>", bookingTypeg);
+      setBookingType(bookingTypeg);
+      if (bookingTypeg == "group") {
+        if (allAmount) {
+          let alv = JSON.parse(allAmount);
+          setAllAmountSt(alv);
+        }
+      }
+    }
+
     if (servicesSt) {
       servicesSt = JSON.parse(servicesSt);
       console.log("services>>>>>>>", servicesSt);
@@ -100,6 +118,14 @@ function EnterDetails() {
   console.log(formik.values);
 
   const bookAppointment = async (values) => {
+    if (bookingType == "group") {
+      let amountL = localStorage.getItem("amount");
+      if (amountL) {
+        console.log("amount>>>>>>>>vvvvv>>>>>>>>>>>", amountL);
+        setAmount(amountL);
+      }
+    }
+
     let date = localStorage.getItem("date");
     showLoader();
     const data = {
@@ -111,19 +137,12 @@ function EnterDetails() {
         mobile: values.phone,
       },
       bookedDate: new Date(date),
-      isGroup: "False",
+      isGroup: bookingType == "group" ? true : false,
       location: location.location_code,
+      services: allAmountSt.map((data) => {
+        return data.id;
+      }),
     };
-
-    // {
-    //   booked_technician: selectedTech.mobile,
-    //   customer: values.phone,
-    //   bookedDate: selectedTime,
-    //   // slot_timestart: selectedTime,
-    //   isGroup: "False",
-    //   location: location.location_address,
-
-    // };
     console.log(data);
     const res = await axiosCalls(`booking`, "POST", data);
     if (res) {
