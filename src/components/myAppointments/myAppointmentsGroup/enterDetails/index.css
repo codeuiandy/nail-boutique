@@ -1,0 +1,41 @@
+.successModalBooking {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 477px;
+  padding: 40px;
+}
+
+.successModalBooking img {
+  width: 88px;
+  margin-bottom: 5px;
+}
+
+.successModalBooking h2 {
+  font-weight: 800;
+  font-size: 36px;
+  text-align: center;
+  color: #dadada;
+}
+
+.successModalBooking p {
+  font-weight: 300;
+  font-size: 13px;
+  color: #ffffff;
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+
+.successModalBooking button {
+  background: linear-gradient(90deg, #f5d061 -1.65%, #e48f04 100%);
+  border-radius: 10px;
+  border: none;
+  padding: 15px;
+  color: #000000;
+  outline: none;
+  font-weight: 400;
+  font-size: 13px;
+  cursor: pointer;
+}

@@ -105,7 +105,7 @@ function App() {
                   element={<SelectServiceTwoPersonal />}
                 />
                 <Route
-                  path="select-technician/:info"
+                  path="select-technician"
                   element={<SelectTechnicianPersonal />}
                 />
                 <Route path="schedule" element={<SchedulePersonal />} />

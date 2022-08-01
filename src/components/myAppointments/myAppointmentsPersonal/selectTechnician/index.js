@@ -36,6 +36,7 @@ import { axiosCalls } from "../../../../_api";
 import { Toast } from "../../../toast/index";
 import { useNavigate, useParams } from "react-router-dom";
 import { hideLoader, showLoader } from "../../../loader/loader";
+import moment from "moment";
 
 function SelectTechnician() {
   const navigation = useNavigate();
@@ -49,7 +50,24 @@ function SelectTechnician() {
 
   const getTechnicians = async () => {
     showLoader();
-    const res = await axiosCalls(`technicians?location=${params.info}`, "GET");
+    let getTime = localStorage.getItem("time");
+    let getLocation = localStorage.getItem("location");
+    let getDate = localStorage.getItem("date");
+    if (getLocation) {
+      getLocation = JSON.parse(getLocation);
+      console.log("location>>>>>>>d", getLocation);
+      setlocation(getLocation);
+    }
+    // const res = await axiosCalls(`technicians?location=${params.info}`, "GET");
+
+    const res = await axiosCalls(
+      `/technicians/available?location=${
+        getLocation.location_code
+      }&date=${moment(getDate).format("YYYY-MM-DD")}&time=${moment(
+        getTime
+      ).format("HH:mm")}`,
+      "GET"
+    );
     if (res) {
       let locationSt = localStorage.getItem("location");
       let servicesSt = localStorage.getItem("services");
@@ -162,7 +180,7 @@ function SelectTechnician() {
                         JSON.stringify(selectedTech)
                       );
                       navigation(
-                        `/my-appointments/group-booking/schedule/${selectedTech.technician_id}`
+                        `/my-appointments/group-booking/enter-details`
                       );
                     }
               }

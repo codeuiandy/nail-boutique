@@ -143,7 +143,7 @@ function SelectServices() {
                         JSON.stringify(selectedService)
                       );
                       navigation(
-                        `/my-appointments/personal-booking/select-technician/${params.id}`
+                        `/my-appointments/group-booking/schedule/${params.id}`
                       );
                     }
                 // navigation("/my-appointments/group-booking/schedule")

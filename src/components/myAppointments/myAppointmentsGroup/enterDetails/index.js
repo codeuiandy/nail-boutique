@@ -31,6 +31,10 @@ import { hideLoader, showLoader } from "../../../loader/loader";
 import { axiosCalls } from "../../../../_api";
 import { Toast } from "../../../toast/index";
 import { useNavigate } from "react-router-dom";
+import "react-responsive-modal/styles.css";
+import { Modal } from "react-responsive-modal";
+import "./index.css";
+import tick from "../../../../images/tick2.png";
 
 function EnterDetails() {
   const navigation = useNavigate();
@@ -38,6 +42,9 @@ function EnterDetails() {
   const [servicessTA, setservicessTA] = useState({});
   const [selectedTech, setselectedTech] = useState({});
   const [selectedTime, setselectedTime] = useState({});
+  const [open, setOpen] = useState(false);
+  const onOpenModal = () => setOpen(true);
+  const onCloseModal = () => setOpen(false);
 
   useEffect(() => {
     let locationSt = localStorage.getItem("location");
@@ -124,7 +131,7 @@ function EnterDetails() {
       if (res.status === 200) {
         console.log(res);
         Toast("success", res.message);
-        navigation("/");
+        onOpenModal();
         return;
       }
       console.log(res);
@@ -261,6 +268,31 @@ function EnterDetails() {
           />
         </RightContentCol2>
       </RightContent>
+
+      <Modal
+        open={open}
+        onClose={onCloseModal}
+        center
+        showCloseIcon={false}
+        closeOnOverlayClick={false}
+        closeOnEsc={false}
+      >
+        <div
+          style={{ backgroundColor: "#1C1C1C" }}
+          className="successModalBooking"
+        >
+          <img src={tick} alt="tick" />
+          <h2>Success!</h2>
+          <p>Booking Successfull, please check email for more information</p>
+          <button
+            onClick={() => {
+              navigation("/");
+            }}
+          >
+            GO BACK HOME
+          </button>
+        </div>
+      </Modal>
     </ContentContainer>
   );
 }

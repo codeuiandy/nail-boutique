@@ -160,7 +160,8 @@ function Schedule() {
                     : () => {
                         localStorage.setItem("time", selectedTime);
                         navigation(
-                          `/my-appointments/group-booking/enter-details`
+                          // `/my-appointments/group-booking/enter-details`
+                          `/my-appointments/personal-booking/select-technician`
                         );
                       }
                 }

@@ -4,3 +4,19 @@
   background-color: rgba(0, 0, 0, 0.382) !important;
   filter: grayscale(0.1) blur(1.9px);
 }
+
+.react-responsive-modal-overlay {
+  background-color: rgba(0, 0, 0, 0.246) !important;
+  backdrop-filter: blur(4px);
+}
+
+.react-responsive-modal-modal {
+  background-color: transparent !important;
+  padding: 0 !important;
+  width: auto !important;
+  max-width: 100% !important;
+}
+
+.react-responsive-modal-modal {
+  background: #1c1c1c !important;
+}
