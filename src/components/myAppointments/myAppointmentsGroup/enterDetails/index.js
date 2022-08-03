@@ -96,7 +96,7 @@ function EnterDetails() {
 			lastName: '',
 			email: '',
 			phone: '',
-			state: '',
+			comment: '',
 		},
 		validationSchema: Yup.object({
 			firstName: Yup.string()
@@ -243,18 +243,19 @@ function EnterDetails() {
 										) : null}
 									</ErrorMsg>
 								</InputField>
-								<InputField>
-									<label htmlFor='state'>State</label>
-									<input
-										type='text'
-										name='state'
-										id='state'
-										placeholder='State (optional)'
+								<Comment>
+									<label htmlFor='comment'>Comment</label>
+									<textarea
+										name='comment'
+										id='comment'
+										rows={1}
+										cols={6}
+										placeholder='Comment (optional)'
 										onChange={formik.handleChange}
 										onBlur={formik.handleBlur}
-										value={formik.values.state}
-									></input>
-								</InputField>
+										value={formik.values.comment}
+									></textarea>
+								</Comment>
 								<CheckBox label='Remember Me' name='remember' />
 							</FormField>
 						</EnterDetailsContainer>
